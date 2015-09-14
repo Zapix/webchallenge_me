@@ -1,0 +1,2 @@
+#!/bin/sh
+~/envs/webchallenge_me/bin/flake8 backend
