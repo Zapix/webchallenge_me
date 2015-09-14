@@ -38,7 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework'
+    'rest_framework',
+
+    'image_downloader'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,6 +106,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from .local_settings import *
+    from .local_settings import *  # flake8: noqa
 except ImportError:
     pass
