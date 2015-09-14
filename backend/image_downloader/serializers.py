@@ -11,7 +11,7 @@ class JobSerializer(serializers.ModelSerializer):
 
 
 class ImageInfoSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.ImageInfo
+        read_only_fields = ('state',)
         exclude = ('job', )
