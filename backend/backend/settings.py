@@ -105,6 +105,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
+
 try:
     from .local_settings import *  # flake8: noqa
 except ImportError:
