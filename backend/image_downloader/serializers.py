@@ -8,10 +8,17 @@ class JobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Job
+        read_only_fields = ('state',)
 
 
 class ImageInfoSerializer(serializers.ModelSerializer):
+    width = serializers.IntegerField()
+    height = serializers.IntegerField()
+    size = serializers.IntegerField()
+    url = serializers.CharField()
+    path = serializers.CharField()
+    mimetype = serializers.CharField()
+
     class Meta:
         model = models.ImageInfo
-        read_only_fields = ('state',)
         exclude = ('job', )

@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
+import random
+import datetime
+import mimetypes
+from StringIO import StringIO
 from urlparse import urlparse
 from HTMLParser import HTMLParser
 
 import requests
+
+from django.core.files.images import ImageFile
 
 
 class ImagesHTMLParser(HTMLParser):
@@ -92,6 +98,45 @@ def get_image_links_from_url(url):
     ]
 
 
+def get_image_filename_from_response(response):
+    """
+    Get image by url path.
+    If there is no filename, then generate it.
+    If filename hasn't got extension then try to get it from content type
+    :param url:
+    :return:
+    """
+    image_name = os.path.basename(response.request.url)
+    if not image_name:
+        image_name = '{}-{}{}'.format(
+            datetime.datetime.now().strftime("%Y%m%d%H%M%S"),
+            random.randint(1, 100),
+            mimetypes.guess_extension(
+                response.headers.get('content-type'),
+                False
+            )
+        )
+    return image_name
+
+
 def get_image_by_url(url):
+    """
+    Get image by url.
+    If url status is 200 and response is image then return django image file
+    and genereated name.
+    Else return None
+    :param url:
+    :return:
+    """
     response = requests.get(url)
-    return response
+
+    if (
+        response.status_code != 200 or
+        'image' not in response.headers.get('content-type')
+    ):
+        return None
+
+    return (
+        ImageFile(StringIO(response.content)),
+        get_image_filename_from_response(response)
+    )

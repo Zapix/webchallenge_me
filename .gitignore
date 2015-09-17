@@ -34,7 +34,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
+backend/htmlcov/
 .tox/
 .coverage
 .coverage.*
@@ -61,3 +61,6 @@ target/
 local_settings.py
 
 *.sqlite3
+
+backend/media/
+media/

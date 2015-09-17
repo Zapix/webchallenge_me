@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import magic
+
 from django.db import models
 
 from djchoices import DjangoChoices, ChoiceItem
@@ -46,14 +48,10 @@ class ImageInfo(models.Model):
         'Job',
         related_name='images'
     )
-    name = models.CharField(
-        'Image name',
-        max_length=255
+    image = models.ImageField(
+        upload_to=lambda instance, name: 'job_{}/{}'.format(instance.job_id,
+                                                            name)
     )
-    original_url = models.URLField()
-    height = models.PositiveIntegerField()
-    width = models.PositiveIntegerField()
-    size_in_bytes = models.PositiveIntegerField()
     created = models.DateTimeField(
         auto_now_add=True
     )
@@ -62,7 +60,37 @@ class ImageInfo(models.Model):
         ordering = ('-created', )
 
     def __unicode__(self):
-        return self.name or 'New Image'
+        return self.image.name or 'New Image'
 
     def __repr__(self):
         return '<ImageInfo {}, pk {}>'.format(unicode(self), self.pk)
+
+    @property
+    def width(self):
+        assert self.pk
+        return self.image.width
+
+    @property
+    def height(self):
+        assert self.pk
+        return self.image.height
+
+    @property
+    def size(self):
+        assert self.pk
+        return self.image.size
+
+    @property
+    def url(self):
+        assert self.pk
+        return self.image.url
+
+    @property
+    def path(self):
+        assert self.pk
+        return self.image.path
+
+    @property
+    def mimetype(self):
+        assert self.pk
+        return magic.from_file(self.path, True)

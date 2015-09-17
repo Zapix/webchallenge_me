@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_extensions',
     'rest_framework',
 
     'image_downloader'
@@ -105,7 +106,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(
+    BASE_DIR,
+    os.path.pardir,
+    'media'
+)
+
+CELERY_CHORD_PROPAGATES = False
 
 try:
     from .local_settings import *  # flake8: noqa
