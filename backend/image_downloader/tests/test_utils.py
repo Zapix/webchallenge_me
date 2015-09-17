@@ -211,6 +211,25 @@ class GetImageFilenameFromResponseTestCase(TestCase):
 
         self.assertEquals(filename, 'image1.png')
 
+    def test_get_filename_from_url_exclude_params(self):
+        response = MagicMock()
+        response.request.url = 'http://vk.com/test/image1.png?test=1&help=2'
+
+        filename = utils.get_image_filename_from_response(response)
+
+        self.assertEquals(filename, 'image1.png')
+
+    def test_get_filename_from_url_add_extension(self):
+        response = MagicMock()
+        response.request.url = 'http://vk.com/test/image1'
+        response.headers = {
+            'content-type': 'image/png'
+        }
+
+        filename = utils.get_image_filename_from_response(response)
+
+        self.assertEquals(filename, 'image1.png')
+
     def test_generate_filename(self):
         strftime_mock = MagicMock()
         strftime_mock.return_value = "20150916000000"

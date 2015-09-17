@@ -92,10 +92,10 @@ def get_image_links_from_url(url):
 
     response = requests.get(url)
 
-    return [
+    return {
         prepare_image_link(image_link, response)
         for image_link in get_image_links_from_response(response)
-    ]
+    }
 
 
 def get_image_filename_from_response(response):
@@ -106,16 +106,26 @@ def get_image_filename_from_response(response):
     :param url:
     :return:
     """
-    image_name = os.path.basename(response.request.url)
+    image_name = os.path.basename(
+        urlparse(response.request.url).path
+    )
     if not image_name:
-        image_name = '{}-{}{}'.format(
+        image_name = '{}-{}'.format(
             datetime.datetime.now().strftime("%Y%m%d%H%M%S"),
-            random.randint(1, 100),
+            random.randint(1, 100)
+        )
+
+    _, split_ext = os.path.splitext(image_name)
+
+    if not split_ext:
+        image_name = '{}{}'.format(
+            image_name,
             mimetypes.guess_extension(
                 response.headers.get('content-type'),
                 False
             )
         )
+
     return image_name
 
 
