@@ -28,7 +28,8 @@ api_v1_job_router.register(
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/', include(api_v1_router.urls)),
-    url(r'^api/v1/', include(api_v1_job_router.urls))
+    url(r'^api/v1/', include(api_v1_job_router.urls)),
+    url(r'^docs/', include('rest_framework_swagger.urls')),
 ]
 
 if settings.DEBUG:
@@ -37,5 +38,5 @@ if settings.DEBUG:
             r'^media/(?P<path>.*)$',
             'django.views.static.serve',
             {'document_root': settings.MEDIA_ROOT}
-        ),
+        )
     ]

@@ -68,6 +68,33 @@ class ImageCreateTestCase(APITestCase):
 
 class JobAPITestCase(JobCreateTestCase):
 
+    def test_get_job_list(self):
+        response = self.client.get(
+            reverse(
+                'job-list',
+            )
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+    def test_create_job(self):
+        response = self.client.post(
+            reverse(
+                'job-list'
+            ),
+            {
+                'url': self.faker.url()
+            }
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+
     def test_get_job_success(self):
         job = self.create_job()
 
@@ -83,43 +110,6 @@ class JobAPITestCase(JobCreateTestCase):
         self.assertEquals(
             response.status_code,
             status.HTTP_200_OK
-        )
-
-    def test_update_job_not_allowed(self):
-        job = self.create_job()
-
-        response = self.client.put(
-            reverse(
-                'job-detail',
-                kwargs={
-                    'pk': job.pk
-                }
-            ),
-            {
-                'url': 'http://google.com/fake'
-            }
-        )
-
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_405_METHOD_NOT_ALLOWED
-        )
-
-    def test_delete_not_allowed(self):
-        job = self.create_job()
-
-        response = self.client.delete(
-            reverse(
-                'job-detail',
-                kwargs={
-                    'pk': job.pk
-                }
-            )
-        )
-
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_405_METHOD_NOT_ALLOWED
         )
 
 
@@ -157,63 +147,21 @@ class ImageAPITestCase(JobCreateTestCase, ImageCreateTestCase):
             status.HTTP_404_NOT_FOUND
         )
 
-    def test_create_image_not_allowed(self):
-        job = self.create_job()
-
-        response = self.client.post(
-            reverse(
-                'image-list',
-                kwargs={
-                    'job_pk': job.pk
-                }
-            ),
-            {
-                'url': 'http://vk.com/some_url.jpg'
-            }
-        )
-
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_405_METHOD_NOT_ALLOWED
-        )
-
-    def test_image_update_not_allowed(self):
+    def test_get_image(self):
         job = self.create_job()
         image_info = self.create_image_info(job)
 
-        response = self.client.put(
+        response = self.client.get(
             reverse(
                 'image-detail',
                 kwargs={
-                    'pk': image_info.pk,
-                    'job_pk': job.pk
-                }
-            ),
-            {
-                'url': 'http://google.com/image.png'
-            }
-        )
-
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_405_METHOD_NOT_ALLOWED
-        )
-
-    def test_image_delete_not_allowed(self):
-        job = self.create_job()
-        image_info = self.create_image_info(job)
-
-        response = self.client.delete(
-            reverse(
-                'image-detail',
-                kwargs={
-                    'pk': image_info.pk,
-                    'job_pk': job.pk
+                    'job_pk': job.pk,
+                    'pk': image_info.pk
                 }
             )
         )
 
         self.assertEquals(
             response.status_code,
-            status.HTTP_405_METHOD_NOT_ALLOWED
+            status.HTTP_200_OK
         )

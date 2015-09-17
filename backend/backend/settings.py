@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 
     'django_extensions',
     'rest_framework',
+    'rest_framework_swagger',
 
     'image_downloader'
 )
@@ -114,6 +115,18 @@ MEDIA_ROOT = os.path.join(
 )
 
 CELERY_CHORD_PROPAGATES = False
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 5
+}
+
+SWAGGER_SETTINGS = {
+    'info': {
+        'contact': 'zap.aibulatov@gmail.com',
+        'description': 'Api for downloading images via url',
+        'title': 'Image Downloader API'
+    }
+}
 
 try:
     from .local_settings import *  # flake8: noqa
