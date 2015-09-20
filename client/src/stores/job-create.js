@@ -18,7 +18,7 @@ class JobCreateStore extends BaseStore {
       this.jobCreateFailed.bind(this)
     );
     this._addHandler(
-      JOB_ACTION_TYPES.JOB_CREATE_CLEARA,
+      JOB_ACTION_TYPES.JOB_CREATE_CLEAR,
       this.jobCreateClear.bind(this)
     );
   }
