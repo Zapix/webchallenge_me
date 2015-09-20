@@ -64,3 +64,7 @@ local_settings.py
 
 backend/media/
 media/
+client/node_modules/
+client/build/
+client/dist/
+*/node_modules/

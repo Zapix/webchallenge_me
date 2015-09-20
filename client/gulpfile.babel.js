@@ -1,3 +1,4 @@
+import fs from 'fs';
 import gulp from 'gulp';
 import autoprefixer from 'autoprefixer';
 import browserify from 'browserify';
@@ -15,10 +16,12 @@ import postcss from 'gulp-postcss';
 import nested from 'postcss-nested';
 import vars from 'postcss-simple-vars';
 import extend from 'postcss-simple-extend';
+import atImport from 'postcss-import';
 import cssnano from 'cssnano';
 import htmlReplace from 'gulp-html-replace';
 import image from 'gulp-image';
 import runSequence from 'run-sequence';
+import envify from 'envify/custom';
 
 const paths = {
   bundle: 'app.js',
@@ -43,7 +46,9 @@ gulp.task('browserSync', () => {
 });
 
 gulp.task('watchify', () => {
-  let bundler = watchify(browserify(paths.srcJsx, watchify.args));
+  let bundler = watchify(
+    browserify(paths.srcJsx, watchify.args)
+  );
 
   function rebundle() {
     return bundler
@@ -54,7 +59,16 @@ gulp.task('watchify', () => {
       .pipe(reload({stream: true}));
   }
 
-  bundler.transform(babelify)
+  bundler
+  .transform(babelify)
+  .transform(
+    envify(
+      {
+        NODE_ENV: 'development',
+        API_END_POINT: 'http://localhost:8000/api/v1'
+      }
+    )
+  )
   .on('update', rebundle);
   return rebundle();
 });
@@ -62,8 +76,17 @@ gulp.task('watchify', () => {
 gulp.task('browserify', () => {
   browserify(paths.srcJsx)
   .transform(babelify)
+  .transform(
+    envify(
+      {
+        NODE_ENV: process.env.NODE_ENV,
+        API_END_POINT: process.env.API_END_POINT
+      }
+    )
+  )
   .bundle()
   .pipe(source(paths.bundle))
+  .pipe(envs)
   .pipe(buffer())
   .pipe(sourcemaps.init())
   .pipe(uglify())
@@ -74,7 +97,7 @@ gulp.task('browserify', () => {
 gulp.task('styles', () => {
   gulp.src(paths.srcCss)
   .pipe(sourcemaps.init())
-  .pipe(postcss([vars, extend, nested, autoprefixer, cssnano]))
+  .pipe(postcss([atImport, vars, extend, nested, autoprefixer, cssnano]))
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest(paths.dist))
   .pipe(reload({stream: true}));

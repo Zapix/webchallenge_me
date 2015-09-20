@@ -1,3 +1,6 @@
+@import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '../../node_modules/bootstrap/dist/css/bootstrap-theme.css';
+
 *, *:before, *:after {
   box-sizing: border-box;
 }

@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
     'django_extensions',
     'rest_framework',
     'rest_framework_swagger',
@@ -47,6 +48,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -127,6 +129,8 @@ SWAGGER_SETTINGS = {
         'title': 'Image Downloader API'
     }
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 try:
     from .local_settings import *  # flake8: noqa
