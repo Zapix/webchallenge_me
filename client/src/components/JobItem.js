@@ -11,7 +11,7 @@ class JobItem extends React.Component {
     if (job.state == 'finished') {
       viewJobButton = (
         <Link
-          to="/job-list"
+          to={`/job-list/${job.id}`}
           >
           View results
         </Link>

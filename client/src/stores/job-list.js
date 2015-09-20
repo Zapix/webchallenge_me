@@ -1,5 +1,4 @@
 import BaseStore from './base';
-import appDispatcher from '../dispatcher/app-dispatcher';
 import {JOB_ACTION_TYPES} from '../constants/action-types';
 
 

@@ -6,7 +6,6 @@ import {JOB_ACTION_TYPES} from '../constants/action-types';
 
 export default {
   loadJobList(page=1) {
-    console.log(API_END_POINT + '/job/');
     request
     .get(`${API_END_POINT}/job/`)
     .query(
@@ -37,5 +36,28 @@ export default {
 
   clearJobList() {
     appDispatcher.dispatch({'type': JOB_ACTION_TYPES.JOB_LIST_CLEAR});
+  },
+
+  loadJobDetail(jobId) {
+    request
+    .get(`${API_END_POINT}/job/${jobId}`)
+    .end(
+      (err, res) => {
+        if (res.ok) {
+          appDispatcher.dispatch(
+            {
+              'type': JOB_ACTION_TYPES.JOB_DETAIL_LOAD_SUCCEEDED,
+              'job': res.body
+            }
+          );
+        } else {
+          appDispatcher.dispatch(
+            {
+              'type': JOB_ACTION_TYPES.JOB_DETAIL_LOAD_FAILED
+            }
+          );
+        }
+      }
+    );
   }
 };

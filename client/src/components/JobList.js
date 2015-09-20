@@ -26,7 +26,7 @@ class JobList extends React.Component {
 
   componentDidMount() {
     jobListStore.addChangeListener(
-      this.listStoreChanged.bind(this)
+      this.listStoreChangeHandler.bind(this)
     );
     jobActions.loadJobList(this.state.nextPage);
   }
@@ -34,11 +34,14 @@ class JobList extends React.Component {
   componentWillUnmount() {
     jobActions.clearJobList();
     jobListStore.removeChangeListener(
-      this.listStoreChanged
+      this.listStoreChangeHandler
     );
   }
 
   render() {
+    if (this.props.children) {
+      return <div>{this.props.children}</div>
+    }
     let loadMoreButton = null;
 
     if (this.state.hasNext) {
@@ -92,7 +95,7 @@ class JobList extends React.Component {
     );
   }
 
-  listStoreChanged() {
+  listStoreChangeHandler() {
     this.setState(
       {
         jobList: jobListStore.jobList,
