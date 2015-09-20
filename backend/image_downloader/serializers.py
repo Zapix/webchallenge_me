@@ -15,7 +15,7 @@ class ImageInfoSerializer(serializers.ModelSerializer):
     width = serializers.IntegerField()
     height = serializers.IntegerField()
     size = serializers.IntegerField()
-    url = serializers.CharField()
+    filename = serializers.CharField()
     path = serializers.CharField()
     mimetype = serializers.CharField()
 

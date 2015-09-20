@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import magic
 
 from django.db import models
@@ -66,6 +67,10 @@ class ImageInfo(models.Model):
         return '<ImageInfo {}, pk {}>'.format(unicode(self), self.pk)
 
     @property
+    def filename(self):
+        return os.path.basename(self.image.path)
+
+    @property
     def width(self):
         assert self.pk
         return self.image.width
@@ -79,11 +84,6 @@ class ImageInfo(models.Model):
     def size(self):
         assert self.pk
         return self.image.size
-
-    @property
-    def url(self):
-        assert self.pk
-        return self.image.url
 
     @property
     def path(self):

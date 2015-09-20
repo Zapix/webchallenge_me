@@ -1,4 +1,4 @@
-import request from 'superagent'
+import request from 'superagent';
 
 import appDispatcher from '../dispatcher/app-dispatcher';
 import {API_END_POINT} from '../constants/app-settings';
@@ -18,15 +18,15 @@ export default {
         if (res.ok) {
           appDispatcher.dispatch(
             {
-              'type': JOB_ACTION_TYPES.JOB_LIST_LOAD_SUCCEEDED,
-              'results': res.body.results,
-              'next': res.body.next
+              type: JOB_ACTION_TYPES.JOB_LIST_LOAD_SUCCEEDED,
+              results: res.body.results,
+              next: res.body.next
             }
           );
         } else {
           appDispatcher.dispatch(
             {
-              'type': JOB_ACTION_TYPES.JOB_LIST_LOAD_FAILED
+              type: JOB_ACTION_TYPES.JOB_LIST_LOAD_FAILED
             }
           );
         }
@@ -35,7 +35,7 @@ export default {
   },
 
   clearJobList() {
-    appDispatcher.dispatch({'type': JOB_ACTION_TYPES.JOB_LIST_CLEAR});
+    appDispatcher.dispatch({type: JOB_ACTION_TYPES.JOB_LIST_CLEAR});
   },
 
   loadJobDetail(jobId) {
@@ -46,14 +46,14 @@ export default {
         if (res.ok) {
           appDispatcher.dispatch(
             {
-              'type': JOB_ACTION_TYPES.JOB_DETAIL_LOAD_SUCCEEDED,
-              'job': res.body
+              type: JOB_ACTION_TYPES.JOB_DETAIL_LOAD_SUCCEEDED,
+              job: res.body
             }
           );
         } else {
           appDispatcher.dispatch(
             {
-              'type': JOB_ACTION_TYPES.JOB_DETAIL_LOAD_FAILED
+              type: JOB_ACTION_TYPES.JOB_DETAIL_LOAD_FAILED
             }
           );
         }

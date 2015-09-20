@@ -2,6 +2,7 @@ import React from 'react';
 
 import jobStore  from '../stores/job-detail';
 import jobActions from '../actions/job-actions';
+import ImageTable from './ImageTable';
 
 
 class JobDetail extends React.Component {
@@ -36,16 +37,13 @@ class JobDetail extends React.Component {
     return (
       <div>
         <h2>
-          Job Detail: {this.props.params.id}
+          Job url: {job.url}
         </h2>
-        <div>
-          <strong>Url:</strong>
-          {job.url}
-        </div>
         <div>
           <strong>Status:</strong>
           {job.state}
         </div>
+        <ImageTable jobId={job.id} />
       </div>
     );
   }

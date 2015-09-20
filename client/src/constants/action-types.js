@@ -12,3 +12,11 @@ export const JOB_ACTION_TYPES = keyMirror(
     JOB_DETAIL_LOAD_FAILED: null
   }
 );
+
+export const IMAGE_ACTION_TYPES = keyMirror(
+  {
+    IMAGE_LIST_LOAD_SUCCEEDED: null,
+    IMAGE_LIST_LOAD_FAILED: null,
+    IMAGE_LIST_CLEAR: null
+  }
+);

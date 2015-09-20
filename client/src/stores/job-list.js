@@ -20,7 +20,6 @@ class JobListStore extends BaseStore {
 
   listLoadSucceeded(action) {
     this._jobList.push(...action.results);
-    console.log("Job list:", this._jobList);
     this._next = action.next;
     this.emitChange();
   }
