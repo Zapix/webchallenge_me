@@ -13,12 +13,28 @@ export default React.createClass({
     return (
       <div>
         <header>
-          <h1>Image Downloader</h1>
-          <Link to="/url-list">Url List</Link>
-          <Link to="/about">About</Link>
+          <h1>
+            <Link
+              to="/"
+              >
+              Image Downloader
+            </Link>
+          </h1>
+          <Link
+            to="/job-list"
+            >
+            Job List
+          </Link>
+          <Link
+            to="/about"
+            >
+            About
+          </Link>
         </header>
         <section>
-          <div className="container">
+          <div
+            className="container"
+            >
             {this.props.children || 'Welcome to React Starterify'}
           </div>
         </section>

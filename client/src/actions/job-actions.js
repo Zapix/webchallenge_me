@@ -1,6 +1,7 @@
 import request from 'superagent'
 
-import {API_END_POINT} from '../constants/app-settings'
+import appDispatcher from '../dispatcher/app-dispatcher';
+import {API_END_POINT} from '../constants/app-settings';
 import {JOB_ACTION_TYPES} from '../constants/action-types';
 
 export default {
@@ -15,15 +16,26 @@ export default {
     )
     .end(
       (err, res) => {
-        console.log(err, res);
         if (res.ok) {
-          console.log("Ok");
-          console.log(res);
+          appDispatcher.dispatch(
+            {
+              'type': JOB_ACTION_TYPES.JOB_LIST_LOAD_SUCCEEDED,
+              'results': res.body.results,
+              'next': res.body.next
+            }
+          );
         } else {
-          console.log("Error");
-          console.log(err);
+          appDispatcher.dispatch(
+            {
+              'type': JOB_ACTION_TYPES.JOB_LIST_LOAD_FAILED
+            }
+          );
         }
       }
     );
+  },
+
+  clearJobList() {
+    appDispatcher.dispatch({'type': JOB_ACTION_TYPES.JOB_LIST_CLEAR});
   }
 };
