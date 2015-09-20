@@ -59,5 +59,45 @@ export default {
         }
       }
     );
+  },
+
+  createJob(url) {
+    request
+    .post(`${API_END_POINT}/job/`)
+    .send(
+      {
+        url: url
+      }
+    )
+    .end(
+      (err, res) => {
+        if(res.ok) {
+          appDispatcher.dispatch(
+            {
+              type: JOB_ACTION_TYPES.JOB_CREATE_SUCCEEDED,
+              job: res.body,
+              status: res.status
+            }
+          );
+        } else {
+          console.log(res.body, res.status);
+          appDispatcher.dispatch(
+            {
+              type: JOB_ACTION_TYPES.JOB_CREATE_FAILED,
+              errors: res.body,
+              status: res.status
+            }
+          );
+        }
+      }
+    );
+  },
+
+  clearCreateJob() {
+    appDispatcher.dispatch(
+      {
+        type: JOB_ACTION_TYPES.JOB_CREATE_CLEAR
+      }
+    )
   }
 };

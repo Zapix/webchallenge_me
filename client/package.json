@@ -41,6 +41,7 @@
     "postcss-import": "^7.0.0",
     "react": "^0.13.3",
     "react-bootstrap": "^0.25.2",
+    "react-mixin": "^3.0.0",
     "react-router": "^1.0.0-beta4",
     "superagent": "^1.4.0"
   },
