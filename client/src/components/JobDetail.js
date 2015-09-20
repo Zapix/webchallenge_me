@@ -43,7 +43,7 @@ class JobDetail extends React.Component {
           <strong>Status:</strong>
           {job.state}
         </div>
-        <ImageTable jobId={job.id} />
+        <ImageTable jobId={this.props.params.id} />
       </div>
     );
   }
