@@ -1,4 +1,4 @@
-Django==1.8.4
+Django==1.11.28
 Pillow==2.9.0
 PyYAML==3.11
 Twisted==15.4.0
