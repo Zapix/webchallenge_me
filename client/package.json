@@ -35,7 +35,7 @@
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
     "flux": "^2.1.1",
     "gulp-env": "^0.2.0",
-    "jquery": "^2.1.4",
+    "jquery": "^3.5.0",
     "key-mirror": "^1.0.0",
     "keymirror": "^0.1.1",
     "postcss-import": "^7.0.0",
