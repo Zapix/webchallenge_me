@@ -39,7 +39,7 @@
     "key-mirror": "^1.0.0",
     "keymirror": "^0.1.1",
     "postcss-import": "^7.0.0",
-    "react": "^0.13.3",
+    "react": "^16.13.1",
     "react-bootstrap": "^0.25.2",
     "react-mixin": "^3.0.0",
     "react-router": "^1.0.0-beta4",
