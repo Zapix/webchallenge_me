@@ -19,7 +19,7 @@ django-coverage==1.2.4
 django-extensions==1.5.6
 django-markup==0.4
 django-rest-swagger==0.3.4
-djangorestframework==3.2.3
+djangorestframework==3.11.2
 drf-nested-routers==0.10.0
 enum34==1.0.4
 fake-factory==0.5.2
