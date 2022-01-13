@@ -1,5 +1,5 @@
 Django==1.8.4
-Pillow==2.9.0
+Pillow==9.0.0
 PyYAML==3.11
 Twisted==15.4.0
 amqp==1.4.6
